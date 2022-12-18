@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock</title>
+    <style type="text/css">
+        body {
+            text-align: center;
+        }
+
+        #canvas {
+            margin: 1% auto;
+            border-radius: 100%;
+            background-image: url('imgs/bg.png');
+            background-size: 600px 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="600px;" height="600px;">
+        Your web browser does not support canvas element.
+    </canvas>
+
+    <script type = 'text/javascript'>
+        window.onload = function () {
+            showClock(360);
+        }
+
+        function showClock() {
+
+            var canvas = document.getElementById('canvas');
+            if (canvas.getContext) {
+                ctx = canvas.getContext('2d');
+                tickTok();
+                setInterval(tickTok, 1000);
+            } else {
+                alert("Canvas is not supported.");
+            }
+        }
+
+        function tickTok() {
+
+            ctx.clearRect(0, 0, 600, 600);
+
+            var date = new Date();
+
+            var hour = date.getHours();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            drawHour(300, hour * 30);
+
+            var min = date.getMinutes();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            drawMin(300, min * 6);
+
+            var sec = date.getSeconds();
+            ctx.strokeStyle = '#750101';
+            ctx.lineWidth = 1;
+            ctx.lineCap = 'round';
+            drawSec(300, sec * 6);
+        }
+
+        function drawHour(lenght, angle) {
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.translate(300, 300);
+            ctx.rotate(-(Math.PI * 180 / 180));
+            ctx.rotate(Math.PI * angle / 180);
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, 140);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.restore();
+        }
+
+        function drawMin(lenght, angle) {
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.translate(300, 300);
+            ctx.rotate(-(Math.PI * 180 / 180));
+            ctx.rotate(Math.PI * angle / 180);
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, 170);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.restore();
+        }
+
+        function drawSec(lenght, angle) {
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.translate(300, 300);
+            ctx.rotate(-(Math.PI * 180 / 180));
+            ctx.rotate(Math.PI * angle / 180);
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, 260);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.restore();
+        }
+    </script>
+
+</body>
+
+</html>
